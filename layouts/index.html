@@ -1,0 +1,41 @@
+{{ partial "header.html" . }}
+
+<div class="home-content">{{ .Content }}</div>
+
+<section>
+<h2>最新文章</h2>
+{{ $posts := where .Site.RegularPages "Section" "blog" | last 5 }}
+{{ if gt (len $posts) 0 }}
+<ul class="post-list">
+  {{ range $posts }}
+  <li>
+    {{ if not .CurrentSection.Params.nodate }}
+    <div style="display: grid; grid-template-columns: 7em auto">
+      <span class="date">{{ .Date.Format "Jan 2, 2006" }}</span>
+      <a href="{{ .RelPermalink }}">{{ .Page.Title | markdownify }}</a>
+    </div>
+    {{ else }}
+    <a href="{{ .RelPermalink }}">{{ .Page.Title | markdownify }}</a>
+    {{ end }}
+  </li>
+  {{ end }}
+</ul>
+{{ else }}
+<p>目前还没有博客文章。</p>
+{{ end }}
+</section>
+
+<section>
+<h2>标签</h2>
+{{ if .Site.Taxonomies.tags }}
+<p>
+  {{ range $term, $entry := .Site.Taxonomies.tags }}
+  <a href="{{ $entry.Page.RelPermalink }}">#{{ $term }}</a>&nbsp;
+  {{ end }}
+</p>
+{{ else }}
+<p>暂时没有标签。</p>
+{{ end }}
+</section>
+
+{{ partial "footer.html" . }}

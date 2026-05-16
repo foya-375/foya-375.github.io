@@ -1,0 +1,51 @@
+languageCode: zh-cn
+title: "foya's own site"
+enableGitInfo: true
+menu:
+  main:
+    - name: "Home"
+      url: /
+      weight: 1
+    - name: "About"
+      url: "/about/"
+      weight: 2
+    - name: "Blogs"
+      url: "/blog/"
+      weight: 3
+
+params:
+  description: "Foya's own site"
+  noSearch: true
+
+markup:
+  highlight:
+    codeFences: true
+    style: bw
+    lineNumbersInTable: false
+    noClasses: false
+  goldmark:
+    extensions:
+      passthrough:
+        delimiters:
+          block:
+          - - \[
+            - \]
+          - - $$
+            - $$
+          inline:
+          - - \(
+            - \)
+        enable: true
+    renderer:
+      unsafe: true
+
+outputs:
+  home:
+    - html
+    - rss
+    - json
+  page:
+    - html
+module:
+  imports:
+    - path: github.com/barklan/hugo-dead-simple
